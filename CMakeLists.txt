@@ -35,7 +35,7 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(ad_converter ad_converter.c )
+add_executable(ad_converter ad_converter.c lib/ssd1306.c)
 
 pico_set_program_name(ad_converter "ad_converter")
 pico_set_program_version(ad_converter "0.1")
@@ -46,7 +46,8 @@ pico_enable_stdio_usb(ad_converter 1)
 
 # Add the standard library to the build
 target_link_libraries(ad_converter
-        pico_stdlib)
+        pico_stdlib
+        )
 
 # Add the standard include files to the build
 target_include_directories(ad_converter PRIVATE
@@ -54,8 +55,10 @@ target_include_directories(ad_converter PRIVATE
 )
 
 # Add any user requested libraries
-target_link_libraries(ad_converter 
-        
+target_link_libraries(ad_converter
+        hardware_i2c
+        hardware_adc
+        hardware_pwm
         )
 
 pico_add_extra_outputs(ad_converter)
